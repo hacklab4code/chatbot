@@ -105,42 +105,54 @@ def health():
 def chat(req: ChatRequest):
     message, found = redact(req.message)
     if found:
-        log.warning("Dati personali non pseudonimizzati ricevuti dal client (%s): oscurati", ", ".join(found))
+        log.warning("🔒 [PRIVACY GUARD] Dati personali in chiaro rilevati ed oscurati: %s", ", ".join(found))
+    log.info("📥 [MESSAGGIO RICEVUTO da %s | sess: %s]: \"%s\"", req.channel.upper(), req.session_id[:8], message)
     try:
         result = agent.handle(req.session_id, message, req.channel)
     except LLMError as exc:
-        log.error("LLM non disponibile: %s", exc)
+        log.error("❌ LLM non disponibile: %s", exc)
         raise HTTPException(status_code=503, detail="Assistente momentaneamente non disponibile") from None
+    reply_preview = result.get("reply", "")
+    if len(reply_preview) > 120:
+        reply_preview = reply_preview[:120] + "..."
+    log.info("📤 [RISPOSTA INVIATA AL CLIENT]: \"%s\"", reply_preview)
     return ChatResponse(**result, privacy_warnings=found)
 
 
 @app.delete("/api/v1/chat/{session_id}", dependencies=[Depends(require_api_key)])
 def reset_chat(session_id: str):
+    log.info("🔄 [RESET SESSIONE CHAT]: %s", session_id)
     return {"reset": agent.sessions.reset(session_id)}
 
 
 @app.get("/api/v1/info", dependencies=[Depends(require_api_key)])
 def info(conn=Depends(get_conn)):
+    log.info("ℹ️ [INFO RISTORANTE RICHIESTE]")
     return services.get_info(conn)
 
 
 @app.get("/api/v1/menu", dependencies=[Depends(require_api_key)])
 def menu(category: Optional[str] = None, diet: Optional[str] = None, conn=Depends(get_conn)):
+    log.info("📋 [MENU RICHIESTO] cat=%s, dieta=%s", category, diet)
     return booking_errors(services.get_menu, conn, category, diet)
 
 
 @app.get("/api/v1/availability", dependencies=[Depends(require_api_key)])
 def availability(date: str, time: str, party_size: int = Query(ge=1), conn=Depends(get_conn)):
+    log.info("🔎 [VERIFICA DISPONIBILITÀ] data=%s, ora=%s, persone=%d", date, time, party_size)
     return booking_errors(services.check_availability, conn, date, time, party_size)
 
 
 @app.get("/api/v1/reservations", dependencies=[Depends(require_api_key)])
 def list_reservations(date: Optional[str] = None, conn=Depends(get_conn)):
+    log.info("📖 [LISTA PRENOTAZIONI] data=%s", date)
     return booking_errors(services.list_reservations, conn, date)
 
 
 @app.post("/api/v1/reservations", status_code=201, dependencies=[Depends(require_api_key)])
 def create(res: ReservationIn, conn=Depends(get_conn)):
+    log.info("📝 [NUOVA PRENOTAZIONE RICEVUTA]: data=%s, ora=%s, persone=%d, cliente=%s",
+             res.date, res.time, res.party_size, res.customer_name)
     for value in (res.customer_name, res.contact, res.notes):
         if redact(value)[1]:
             raise HTTPException(status_code=422, detail="Inviare solo dati pseudonimizzati, non dati personali in chiaro")
@@ -150,17 +162,20 @@ def create(res: ReservationIn, conn=Depends(get_conn)):
 
 @app.get("/api/v1/reservations/{code}", dependencies=[Depends(require_api_key)])
 def get_one(code: str, conn=Depends(get_conn)):
+    log.info("🔍 [RICERCA PRENOTAZIONE #%s]", code)
     return booking_errors(services.get_reservation, conn, code)
 
 
 @app.patch("/api/v1/reservations/{code}", dependencies=[Depends(require_api_key)])
 def modify(code: str, patch: ReservationPatch, conn=Depends(get_conn)):
+    log.info("✏️ [MODIFICA PRENOTAZIONE #%s] patch=%s", code, patch.dict(exclude_unset=True))
     return booking_errors(services.modify_reservation, conn, code, patch.date, patch.time,
                           patch.party_size, patch.notes)
 
 
 @app.delete("/api/v1/reservations/{code}", dependencies=[Depends(require_api_key)])
 def cancel(code: str, conn=Depends(get_conn)):
+    log.info("❌ [CANCELLAZIONE PRENOTAZIONE #%s]", code)
     return booking_errors(services.cancel_reservation, conn, code)
 
 

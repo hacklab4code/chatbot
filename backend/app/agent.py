@@ -304,7 +304,7 @@ class Agent:
 
                         result = execute_tool(conn, name, args, channel) if name in TOOL_NAMES else \
                             {"ok": False, "errore": f"Strumento sconosciuto: {name}"}
-                        log.info("tool %s(%s) -> ok=%s", name, args, result["ok"])
+                        log.info("⚙️ [STRUMENTO ESEGUITO]: %s(%s) -> ok=%s", name, args, result["ok"])
                         actions.append({
                             "tool": name,
                             "arguments": args,
