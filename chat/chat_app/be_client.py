@@ -10,12 +10,12 @@ class BackendClient:
     def __init__(self, base_url: str, api_key: str = "", timeout: float = 300):
         self.headers = {"X-API-Key": api_key} if api_key else {}
         self.base_url = base_url.rstrip("/")
-        self.timeout = httpx.Timeout(timeout, connect=5)
+        self._http = httpx.Client(base_url=self.base_url, headers=self.headers,
+                                  timeout=httpx.Timeout(timeout, connect=5))
 
     def _request(self, method: str, path: str, **kwargs) -> dict:
         try:
-            with httpx.Client(base_url=self.base_url, headers=self.headers, timeout=self.timeout) as client:
-                r = client.request(method, path, **kwargs)
+            r = self._http.request(method, path, **kwargs)
         except httpx.TimeoutException:
             raise BackendError("Il servizio di prenotazione sta impiegando troppo tempo. Riprovi tra poco.") from None
         except httpx.HTTPError:

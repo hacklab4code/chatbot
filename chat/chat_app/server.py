@@ -123,8 +123,7 @@ def reset(body: ResetIn):
 
 def run():
     import uvicorn
-    app_dir = Path(__file__).resolve().parent
-    uvicorn.run("chat_app.server:app", host=config.CHAT_HOST, port=config.CHAT_PORT, reload=True, reload_dirs=[str(app_dir)])
+    uvicorn.run(app, host=config.CHAT_HOST, port=config.CHAT_PORT)
 
 
 if __name__ == "__main__":
