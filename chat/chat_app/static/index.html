@@ -1,0 +1,3169 @@
+<!doctype html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ristorante Zio Pierino PSG – Porto San Giorgio</title>
+<meta name="description" content="Prenota il tuo tavolo al Ristorante Pizzeria Zio Pierino PSG a Porto San Giorgio (FM). Cucina marinara dell'Adriatico, primi tipici e pizza cotta a legna.">
+<link rel="icon" type="image/jpeg" href="/logo.jpg">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #f59e0b;
+    --gold-light: #fbbf24;
+    --gold-dark: #d97706;
+    --gold-glow: rgba(245, 158, 11, 0.25);
+    --ocean: #0ea5e9;
+    --ocean-deep: #0284c7;
+    --emerald: #10b981;
+    --error: #ef4444;
+    --font-heading: 'Outfit', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark Theme (Default) */
+  [data-theme="dark"] {
+    --bg-main: #070d18;
+    --bg-surface: #0f1a2e;
+    --bg-panel: rgba(16, 26, 46, 0.82);
+    --bg-panel-solid: #101c31;
+    --bg-bubble-bot: #142138;
+    --bg-bubble-user: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    --bg-card: rgba(23, 37, 63, 0.65);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-focus: rgba(245, 158, 11, 0.6);
+    --shadow-main: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    --glow: 0 0 25px rgba(245, 158, 11, 0.15);
+    --chip-bg: rgba(245, 158, 11, 0.1);
+    --chip-hover: rgba(245, 158, 11, 0.22);
+    --privacy-bg: rgba(16, 185, 129, 0.12);
+    --privacy-text: #34d399;
+  }
+
+  /* Light Theme */
+  [data-theme="light"] {
+    --bg-main: #f4f6fa;
+    --bg-surface: #ffffff;
+    --bg-panel: rgba(255, 255, 255, 0.9);
+    --bg-panel-solid: #ffffff;
+    --bg-bubble-bot: #f1f5f9;
+    --bg-bubble-user: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #808ea3;
+    --border-subtle: rgba(15, 23, 42, 0.09);
+    --border-focus: rgba(217, 119, 6, 0.7);
+    --shadow-main: 0 20px 45px -15px rgba(15, 23, 42, 0.12);
+    --shadow-card: 0 8px 20px -4px rgba(15, 23, 42, 0.07);
+    --glow: 0 0 25px rgba(217, 119, 6, 0.12);
+    --chip-bg: rgba(217, 119, 6, 0.08);
+    --chip-hover: rgba(217, 119, 6, 0.18);
+    --privacy-bg: rgba(16, 185, 129, 0.1);
+    --privacy-text: #059669;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    background-image: 
+      radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(245, 158, 11, 0.09) 0%, transparent 40%);
+  }
+
+  /* App Shell */
+  .app-container {
+    width: 100%;
+    max-width: 900px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-inline: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-main);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Top Navigation & Brand Header */
+  header.brand-header {
+    flex: none;
+    padding: 12px 18px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 20;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  }
+
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+  }
+
+  .logo-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex: none;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--gold) 0%, #ca8a04 100%);
+    box-shadow: 0 4px 12px var(--gold-glow);
+  }
+
+  .logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #0f172a;
+  }
+
+  .brand-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .brand-title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.2;
+  }
+
+  .brand-title span.badge-psg {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: #ffffff;
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--emerald);
+    position: relative;
+  }
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background-color: var(--emerald);
+    opacity: 0.4;
+    animation: ping 2s infinite ease-out;
+  }
+  @keyframes ping {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+
+  /* Header Actions */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-call-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(245, 158, 11, 0.18) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+  }
+  .btn-call-header:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.28) 0%, rgba(245, 158, 11, 0.3) 100%);
+    border-color: #10b981;
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+  }
+  .call-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    position: relative;
+    flex: none;
+  }
+  .call-pulse-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: ping 1.5s infinite ease-out;
+  }
+
+  .btn-icon, .btn-pill {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+  }
+
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 10px;
+  }
+
+  .btn-icon:hover, .btn-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .btn-pill.highlight {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-color: rgba(245, 158, 11, 0.35);
+    color: var(--gold);
+  }
+  .btn-pill.highlight:hover {
+    background: var(--gold);
+    color: #ffffff;
+  }
+
+  .btn-pill.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #ffffff;
+    box-shadow: 0 4px 14px var(--gold-glow);
+  }
+
+  /* Soundwave equalizer indicator */
+  .equalizer {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+  }
+  .equalizer-bar {
+    width: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    animation: eq-anim 0.8s ease-in-out infinite alternate;
+  }
+  .equalizer-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+  .equalizer-bar:nth-child(2) { height: 12px; animation-delay: 0.25s; }
+  .equalizer-bar:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+  @keyframes eq-anim {
+    0% { height: 3px; }
+    100% { height: 12px; }
+  }
+
+  /* Chat Logs Area */
+  #chatLog {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 18px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    scroll-behavior: smooth;
+  }
+
+  /* Hero Welcome Card inside Chat */
+  .hero-welcome-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 6px;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .hero-banner-img {
+    width: 100%;
+    height: 135px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.78);
+  }
+
+  .hero-card-content {
+    padding: 16px 18px;
+    position: relative;
+    background: var(--bg-surface);
+  }
+
+  .hero-tagline {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .hero-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--gold);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Message Bubbles */
+  .msg-row {
+    display: flex;
+    gap: 10px;
+    max-width: 88%;
+    animation: msgIn 0.25s ease-out;
+  }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-row.bot {
+    align-self: flex-start;
+  }
+
+  .msg-row.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .msg-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex: none;
+    overflow: hidden;
+    border: 1.5px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .msg-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .msg-bubble-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .msg-bubble {
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    word-break: break-word;
+    position: relative;
+    box-shadow: var(--shadow-card);
+  }
+
+  .msg-row.bot .msg-bubble {
+    background: var(--bg-bubble-bot);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-top-left-radius: 4px;
+  }
+
+  .msg-row.user .msg-bubble {
+    background: var(--bg-bubble-user);
+    color: #ffffff;
+    border-top-right-radius: 4px;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.35);
+  }
+
+  .msg-bubble strong {
+    font-weight: 700;
+    color: inherit;
+  }
+
+  .msg-bubble ul, .msg-bubble ol {
+    margin: 6px 0;
+    padding-left: 20px;
+  }
+
+  .msg-bubble li {
+    margin-bottom: 4px;
+  }
+
+  .msg-bubble code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .msg-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0 4px;
+  }
+  .msg-row.user .msg-meta-row {
+    justify-content: flex-end;
+  }
+
+  .btn-msg-action {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: var(--transition);
+  }
+  .btn-msg-action:hover {
+    color: var(--gold);
+    background: rgba(245, 158, 11, 0.08);
+  }
+
+  /* Special Reservation Voucher Ticket Card */
+  .reservation-voucher-card {
+    margin-top: 10px;
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%);
+    border: 1.5px solid var(--gold);
+    border-radius: 14px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .reservation-voucher-card::before {
+    content: '★ PRENOTAZIONE CONFERMATA ★';
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .voucher-code-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 8px 0;
+  }
+  .voucher-code-val {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+  }
+  .btn-copy-code {
+    background: var(--gold);
+    color: #ffffff;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-copy-code:hover {
+    background: var(--gold-dark);
+  }
+
+  /* Privacy Notice Badge in Chat */
+  .privacy-bubble {
+    align-self: flex-start;
+    font-size: 11.5px;
+    color: var(--privacy-text);
+    background: var(--privacy-bg);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 8px;
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 90%;
+  }
+
+  /* Typing Wave */
+  .typing-wave {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+  }
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* Quick Suggestion Chips */
+  .chips-container {
+    flex: none;
+    padding: 8px 18px 12px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .chips-container::-webkit-scrollbar { display: none; }
+
+  .suggest-chip {
+    flex: none;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  .suggest-chip:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: var(--chip-bg);
+    transform: translateY(-1px);
+  }
+
+  /* =========================================================================
+     VOICE CALL MODE & INTERFACE (CHIAMATA VOCALE CON IL BOT)
+     ========================================================================= */
+
+  /* Floating Minibar (docked above composer when call is minimized) */
+  .call-minibar, .voice-active-bar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 16px;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.18) 0%, rgba(245, 158, 11, 0.18) 100%);
+    border-top: 1px solid rgba(16, 185, 129, 0.35);
+    color: #10b981;
+    font-size: 13px;
+    font-weight: 600;
+    animation: fadeIn 0.3s ease-out;
+    z-index: 15;
+  }
+  .minibar-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+  }
+  .minibar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: liveBlink 1.4s infinite;
+    flex: none;
+  }
+  .minibar-timer {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: none;
+  }
+  .minibar-divider {
+    color: var(--text-muted);
+    flex: none;
+  }
+  .minibar-status {
+    color: var(--text-primary);
+    font-size: 12.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .minibar-wave, .voice-wave-visual {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 6px;
+    flex: none;
+  }
+  .minibar-wave span, .v-bar {
+    width: 3px;
+    height: 12px;
+    background: #10b981;
+    border-radius: 2px;
+    animation: vwave 0.6s infinite ease-in-out alternate;
+  }
+  .minibar-wave span:nth-child(2), .v-bar:nth-child(2) { animation-delay: 0.15s; height: 16px; }
+  .minibar-wave span:nth-child(3), .v-bar:nth-child(3) { animation-delay: 0.3s; height: 9px; }
+  .minibar-wave span:nth-child(4), .v-bar:nth-child(4) { animation-delay: 0.45s; height: 14px; }
+  @keyframes vwave {
+    0% { transform: scaleY(0.4); }
+    100% { transform: scaleY(1.2); }
+  }
+
+  .minibar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+  }
+  .btn-mini-action {
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-mini-action:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .btn-mini-action.hangup {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* Full Call Overlay */
+  .call-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 250;
+    background: radial-gradient(circle at 50% 12%, rgba(14, 165, 233, 0.22) 0%, transparent 60%),
+                radial-gradient(circle at 50% 88%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+                #070d18;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 24px 20px;
+    animation: callFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes callFadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .call-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* Call Top Bar */
+  .call-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    flex: none;
+  }
+
+  .call-badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .live-blink-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: liveBlink 1.4s infinite ease-in-out;
+    flex: none;
+  }
+  @keyframes liveBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  .call-timer-display {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.5px;
+  }
+
+  .btn-call-minimize {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-call-minimize:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  /* State Transitions for Call Stage & Backdrop */
+  .call-overlay[data-call-state="processing"] {
+    background: radial-gradient(circle at 50% 16%, rgba(245, 158, 11, 0.28) 0%, transparent 60%),
+                radial-gradient(circle at 50% 85%, rgba(99, 102, 241, 0.20) 0%, transparent 60%),
+                #070d18;
+  }
+  .call-overlay[data-call-state="bot_speaking"] {
+    background: radial-gradient(circle at 50% 16%, rgba(245, 158, 11, 0.38) 0%, transparent 60%),
+                radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.18) 0%, transparent 60%),
+                #070d18;
+  }
+  .call-overlay[data-call-state="listening"] {
+    background: radial-gradient(circle at 50% 16%, rgba(16, 185, 129, 0.26) 0%, transparent 60%),
+                radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.20) 0%, transparent 60%),
+                #070d18;
+  }
+
+  /* Minibar State Variations */
+  .call-minibar.state-processing {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.25) 100%);
+    border-top: 1px solid #f59e0b;
+    color: #fef3c7;
+  }
+  .call-minibar.state-processing .minibar-dot { background: #f59e0b; }
+  .call-minibar.state-processing .minibar-wave span { background: #f59e0b; }
+
+  .call-minibar.state-bot_speaking {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.25) 0%, rgba(16, 185, 129, 0.20) 100%);
+    border-top: 1px solid var(--gold);
+    color: #ffffff;
+  }
+  .call-minibar.state-bot_speaking .minibar-dot { background: var(--gold); }
+  .call-minibar.state-bot_speaking .minibar-wave span { background: var(--gold); }
+
+  .call-minibar.state-listening {
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.20) 100%);
+    border-top: 1px solid #10b981;
+    color: #10b981;
+  }
+  .call-minibar.state-listening .minibar-dot { background: #10b981; }
+  .call-minibar.state-listening .minibar-wave span { background: #10b981; }
+
+  /* Caller Stage */
+  .call-caller-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4px 0;
+    flex: 1;
+    justify-content: center;
+    position: relative;
+  }
+
+  .call-avatar-container {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    margin: 0 auto 12px;
+    display: grid;
+    place-items: center;
+  }
+
+  .call-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.4s ease;
+  }
+
+  .call-ring.ring-1 {
+    inset: -8px;
+    border: 2px solid rgba(245, 158, 11, 0.45);
+    animation: pulseRing 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+  .call-ring.ring-2 {
+    inset: -20px;
+    border: 1.5px solid rgba(14, 165, 233, 0.35);
+    animation: pulseRing 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 0.7s;
+  }
+  .call-ring.ring-3 {
+    inset: -32px;
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+    animation: pulseRing 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 1.4s;
+  }
+
+  /* Ring animations per state */
+  .call-caller-stage.state-processing .call-ring.ring-1 {
+    border: 2px solid #f59e0b;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+    animation: spinRing 2s linear infinite, pulseRing 1.6s ease-in-out infinite;
+  }
+  .call-caller-stage.state-processing .call-ring.ring-2 {
+    border: 1.5px dashed #38bdf8;
+    animation: spinRingRev 3.5s linear infinite;
+  }
+  .call-caller-stage.state-processing .call-ring.ring-3 {
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    animation: pulseRing 2s infinite 0.5s;
+  }
+
+  .call-caller-stage.state-bot_speaking .call-ring.ring-1 {
+    border: 2.5px solid var(--gold);
+    animation: acousticRipples 1.3s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .call-caller-stage.state-bot_speaking .call-ring.ring-2 {
+    border: 2px solid rgba(234, 88, 12, 0.7);
+    animation: acousticRipples 1.3s cubic-bezier(0, 0.2, 0.8, 1) infinite 0.4s;
+  }
+  .call-caller-stage.state-bot_speaking .call-ring.ring-3 {
+    border: 1.5px solid rgba(16, 185, 129, 0.5);
+    animation: acousticRipples 1.3s cubic-bezier(0, 0.2, 0.8, 1) infinite 0.8s;
+  }
+
+  .call-caller-stage.state-listening .call-ring.ring-1 {
+    border: 2px solid #10b981;
+    animation: pulseRing 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+  .call-caller-stage.state-listening .call-ring.ring-2 {
+    border: 1.5px solid #06b6d4;
+    animation: pulseRing 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 0.6s;
+  }
+
+  @keyframes pulseRing {
+    0% { transform: scale(0.92); opacity: 0.85; }
+    50% { transform: scale(1.08); opacity: 0.3; }
+    100% { transform: scale(0.92); opacity: 0.85; }
+  }
+  @keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes spinRingRev {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  @keyframes acousticRipples {
+    0% { transform: scale(0.9); opacity: 0.95; }
+    100% { transform: scale(1.48); opacity: 0; }
+  }
+
+  .call-avatar-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--gold) 0%, #ca8a04 100%);
+    box-shadow: 0 0 35px var(--gold-glow);
+    position: relative;
+    z-index: 2;
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+  }
+  .call-caller-stage.state-processing .call-avatar-circle {
+    box-shadow: 0 0 50px rgba(245, 158, 11, 0.75), inset 0 0 15px rgba(245, 158, 11, 0.5);
+    animation: avatarPulse 1.4s ease-in-out infinite alternate;
+  }
+  .call-caller-stage.state-bot_speaking .call-avatar-circle {
+    box-shadow: 0 0 65px rgba(245, 158, 11, 0.95), 0 0 30px rgba(16, 185, 129, 0.6);
+    animation: avatarSpeaking 0.7s ease-in-out infinite alternate;
+  }
+  .call-caller-stage.state-listening .call-avatar-circle {
+    box-shadow: 0 0 38px rgba(16, 185, 129, 0.65);
+  }
+  @keyframes avatarPulse {
+    0% { transform: scale(0.98); }
+    100% { transform: scale(1.03); }
+  }
+  @keyframes avatarSpeaking {
+    0% { transform: scale(0.99); }
+    100% { transform: scale(1.05); }
+  }
+
+  .call-logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #0f172a;
+    display: block;
+  }
+
+  .call-caller-name {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    margin-bottom: 3px;
+    letter-spacing: -0.2px;
+  }
+
+  .call-caller-city {
+    font-size: 13px;
+    color: #fbbf24 !important;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  /* HIGH IMPACT STATE PILL (CHIARISSIMO SE PARLA O CARICA) */
+  .call-state-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin: 2px auto 12px;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  .call-state-pill.state-processing {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.28) 0%, rgba(217, 119, 6, 0.38) 100%);
+    border: 1.5px solid #f59e0b;
+    color: #fef3c7;
+    box-shadow: 0 0 28px rgba(245, 158, 11, 0.55);
+    animation: pillPulseAmber 1.2s infinite alternate ease-in-out;
+  }
+  .call-state-pill.state-bot_speaking {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(16, 185, 129, 0.28) 100%);
+    border: 1.5px solid var(--gold);
+    color: #ffffff;
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.65);
+    animation: pillPulseGold 0.9s infinite alternate ease-in-out;
+  }
+  .call-state-pill.state-listening {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%);
+    border: 1.5px solid #10b981;
+    color: #a7f3d0;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+  }
+  .call-state-pill.state-muted {
+    background: rgba(100, 116, 139, 0.25);
+    border: 1.5px solid #64748b;
+    color: #cbd5e1;
+  }
+
+  @keyframes pillPulseAmber {
+    0% { transform: scale(0.98); box-shadow: 0 0 18px rgba(245, 158, 11, 0.4); }
+    100% { transform: scale(1.02); box-shadow: 0 0 35px rgba(245, 158, 11, 0.7); }
+  }
+  @keyframes pillPulseGold {
+    0% { transform: scale(0.98); box-shadow: 0 0 22px rgba(245, 158, 11, 0.5); }
+    100% { transform: scale(1.03); box-shadow: 0 0 45px rgba(245, 158, 11, 0.85); }
+  }
+
+  .pill-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(254, 243, 199, 0.3);
+    border-top-color: #f59e0b;
+    border-radius: 50%;
+    animation: spinRing 0.7s linear infinite;
+    display: inline-block;
+  }
+  .pill-equalizer {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5px;
+    height: 13px;
+  }
+  .pill-equalizer span {
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: eqMini 0.55s infinite alternate ease-in-out;
+  }
+  .pill-equalizer span:nth-child(2) { animation-delay: 0.15s; }
+  .pill-equalizer span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes eqMini {
+    0% { height: 4px; }
+    100% { height: 13px; }
+  }
+  .pill-rec-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+    animation: liveBlink 1s infinite ease-in-out;
+    display: inline-block;
+  }
+  .pill-tag {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    letter-spacing: 0.4px;
+  }
+
+  /* Soundwave Visualizer Bar */
+  .call-soundwave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 38px;
+    margin-bottom: 8px;
+  }
+
+  .wave-col {
+    width: 4px;
+    height: 8px;
+    border-radius: 3px;
+    background: var(--gold);
+    transition: background 0.3s, transform 0.2s, height 0.2s;
+  }
+
+  .call-soundwave.state-listening .wave-col {
+    background: linear-gradient(180deg, #10b981 0%, #06b6d4 100%);
+    animation: waveBounceListen 0.8s infinite alternate ease-in-out;
+  }
+  .call-soundwave.state-bot_speaking .wave-col {
+    background: linear-gradient(180deg, var(--gold) 0%, #ea580c 100%);
+    animation: waveBounceSpeak 0.45s infinite alternate ease-in-out;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+  }
+  .call-soundwave.state-processing .wave-col {
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    animation: wavePulseProcess 0.9s infinite alternate ease-in-out;
+  }
+  .call-soundwave.state-muted .wave-col {
+    background: #64748b;
+    height: 4px;
+    animation: none;
+  }
+
+  .wave-col:nth-child(1) { animation-delay: 0.04s; }
+  .wave-col:nth-child(2) { animation-delay: 0.14s; }
+  .wave-col:nth-child(3) { animation-delay: 0.24s; }
+  .wave-col:nth-child(4) { animation-delay: 0.34s; }
+  .wave-col:nth-child(5) { animation-delay: 0.20s; }
+  .wave-col:nth-child(6) { animation-delay: 0.10s; }
+  .wave-col:nth-child(7) { animation-delay: 0.30s; }
+  .wave-col:nth-child(8) { animation-delay: 0.18s; }
+  .wave-col:nth-child(9) { animation-delay: 0.08s; }
+
+  @keyframes waveBounceSpeak {
+    0% { height: 6px; }
+    100% { height: 36px; }
+  }
+  @keyframes waveBounceListen {
+    0% { height: 6px; }
+    100% { height: 22px; }
+  }
+  @keyframes wavePulseProcess {
+    0% { height: 6px; opacity: 0.4; }
+    100% { height: 18px; opacity: 1; }
+  }
+
+  /* AI Thinking Radar Banner */
+  .call-ai-thinking-radar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 4px auto 10px;
+    padding: 7px 16px;
+    border-radius: 12px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    max-width: 380px;
+    width: 100%;
+    animation: fadeIn 0.3s ease;
+  }
+  .radar-scan-line {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+  }
+  .radar-scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #f59e0b, #fbbf24, transparent);
+    animation: radarScanSweep 1.2s infinite ease-in-out;
+  }
+  @keyframes radarScanSweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+  .radar-scan-text {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #fef3c7;
+    font-weight: 600;
+  }
+  .scan-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b;
+    animation: liveBlink 1s infinite;
+  }
+
+  .call-status-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 3px;
+  }
+
+  .call-status-hint {
+    font-size: 13px;
+    color: #cbd5e1 !important;
+    min-height: 18px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Subtitles Card */
+  .call-subtitles-card {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 14px 16px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 4px 0;
+    flex: none;
+    transition: all 0.3s ease;
+  }
+
+  .call-sub-row {
+    font-size: 14px;
+    line-height: 1.45;
+    transition: all 0.3s ease;
+  }
+  .call-sub-row.user {
+    color: #93c5fd !important;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    padding-bottom: 8px;
+  }
+  .call-sub-row.bot {
+    color: #f8fafc !important;
+  }
+  .sub-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  .sub-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .call-sub-row.user .sub-label { color: #60a5fa; }
+  .call-sub-row.bot .sub-label { color: var(--gold); }
+
+  .sub-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+  }
+  .sub-tag.sent {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+  .sub-tag.thinking {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+  .sub-tag.speaking {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 88, 12, 0.25));
+    color: #fef08a;
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+  }
+  .sub-tag.listening {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    border: 1px solid #10b981;
+  }
+
+  /* Subtitles Card State Variations */
+  .call-subtitles-card.state-processing .call-sub-row.bot {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 12px;
+    padding: 9px 12px;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
+  }
+  .call-subtitles-card.state-bot_speaking .call-sub-row.bot {
+    background: rgba(245, 158, 11, 0.14);
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 9px 12px;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+    color: #ffffff;
+    font-weight: 500;
+  }
+  .call-subtitles-card.state-listening .call-sub-row.user {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px dashed rgba(16, 185, 129, 0.35);
+    border-radius: 12px;
+    padding: 7px 12px;
+    margin-bottom: 4px;
+  }
+
+  /* Animated Thinking Dots inside Bubble */
+  .bot-thinking-bubble {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fef3c7;
+    font-style: italic;
+  }
+  .thinking-dots-anim {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .thinking-dots-anim span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 6px #f59e0b;
+    animation: dotBounce 1.2s infinite ease-in-out;
+  }
+  .thinking-dots-anim span:nth-child(2) { animation-delay: 0.2s; }
+  .thinking-dots-anim span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* Call Actions Dock */
+  .call-actions-dock {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 10px 4px;
+    flex: none;
+  }
+
+  .call-ctrl-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-call-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--text-primary);
+    font-size: 24px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-call-circle:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: scale(1.06);
+  }
+  .btn-call-circle.active-muted {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: #ffffff;
+  }
+
+  .btn-call-circle.hangup {
+    width: 68px;
+    height: 68px;
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.45);
+    animation: hangupAura 2s infinite alternate ease-in-out;
+  }
+  .btn-call-circle.hangup:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 28px rgba(239, 68, 68, 0.6);
+  }
+  @keyframes hangupAura {
+    0% { box-shadow: 0 4px 18px rgba(239, 68, 68, 0.35); }
+    100% { box-shadow: 0 8px 30px rgba(239, 68, 68, 0.65); }
+  }
+
+  .ctrl-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .ctrl-label.hangup-label {
+    color: #ef4444;
+    font-weight: 700;
+  }
+
+  /* Call Notice Card in Chat Log */
+  .call-notice-card {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px dashed rgba(245, 158, 11, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeIn 0.3s ease;
+  }
+  .call-notice-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .call-notice-icon {
+    font-size: 22px;
+    flex: none;
+  }
+  .call-notice-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .call-notice-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* Composer Input Bar */
+  .composer-bar {
+    flex: none;
+    padding: 12px 18px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .mic-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%);
+    color: var(--gold);
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex: none;
+    transition: var(--transition);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .mic-button:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: scale(1.06);
+    box-shadow: 0 0 16px var(--gold-glow);
+  }
+  .mic-button.in-call, .mic-button.recording {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    border-color: #ef4444;
+    color: #ffffff;
+    animation: micPulse 1.2s infinite;
+  }
+  @keyframes micPulse {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  }
+
+  .input-wrapper {
+    flex: 1;
+    position: relative;
+  }
+
+  .composer-textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border-radius: 14px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.4;
+    min-height: 44px;
+    max-height: 120px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .composer-textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+  .composer-textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  .btn-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: #ffffff;
+    border: none;
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex: none;
+    box-shadow: 0 4px 14px var(--gold-glow);
+    transition: var(--transition);
+  }
+  .btn-send:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  }
+  .btn-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Footer GDPR Note */
+  .footer-note {
+    flex: none;
+    padding: 6px 18px 10px;
+    background: var(--bg-surface);
+    font-size: 11.5px;
+    color: var(--text-muted);
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* Modals / Drawers System */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 16px;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+  }
+  .modal-overlay.open .modal-box {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-close-modal {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+  }
+  .btn-close-modal:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+  }
+
+  .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  /* Menu Modal Specifics */
+  .menu-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .menu-tab {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+  }
+  .menu-tab.active {
+    background: var(--gold);
+    color: #ffffff;
+    border-color: var(--gold);
+  }
+
+  .dish-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    transition: var(--transition);
+  }
+  .dish-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+  .dish-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 2px;
+    color: var(--text-primary);
+  }
+  .dish-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .dish-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .dish-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(14, 165, 233, 0.12);
+    color: var(--ocean);
+  }
+  .dish-price {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* Info Modal Specifics */
+  .info-hero-banner {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    height: 140px;
+  }
+  .info-hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .info-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.85) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    color: #ffffff;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 500px) {
+    .info-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .info-cell {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .info-cell-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--gold);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .info-cell-val {
+    font-size: 13.5px;
+    color: var(--text-primary);
+  }
+  .info-cell-val a {
+    color: var(--ocean);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Booking Lookup Modal */
+  .lookup-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .lookup-input {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-main);
+    color: var(--text-primary);
+  }
+  .lookup-input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .lookup-result {
+    margin-top: 10px;
+    display: none;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .brand-title { font-size: 16px; }
+    .brand-subtitle { font-size: 11px; }
+    .logo-wrapper { width: 40px; height: 40px; }
+    header.brand-header { padding: 10px 14px; }
+    #chatLog { padding: 14px 12px; }
+    .composer-bar { padding: 10px 12px; }
+    .btn-pill span.btn-label { display: none; }
+    .btn-call-header span.call-btn-text { display: none; }
+    .call-overlay { padding: 16px 14px; }
+    .call-avatar-container { width: 105px; height: 105px; }
+    .btn-call-circle { width: 54px; height: 54px; font-size: 20px; }
+    .btn-call-circle.hangup { width: 62px; height: 62px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top Navigation & Brand Header -->
+  <header class="brand-header">
+    <div class="brand-group">
+      <div class="logo-wrapper">
+        <img src="/logo.jpg" alt="Logo Zio Pierino PSG" class="logo-img" onerror="this.src='/static/logo.jpg'">
+      </div>
+      <div class="brand-details">
+        <div class="brand-title">
+          Zio Pierino
+          <span class="badge-psg">PSG</span>
+        </div>
+        <div class="brand-subtitle">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Porto San Giorgio · Prenotazioni</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header Call Button -->
+    <div class="header-call-box">
+      <button type="button" class="btn-call-header" id="btnStartCall" title="Avvia Chiamata Vocale con Zio Pierino" aria-label="Chiama Zio Pierino">
+        <span class="call-pulse-dot"></span>
+        <span class="call-btn-icon">📞</span>
+        <span class="call-btn-text">Chiama al Telefono</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Chat Log Stream -->
+  <div id="chatLog" aria-live="polite">
+    <!-- Hero Welcome Banner -->
+    <div class="hero-welcome-card" id="heroCard">
+      <img src="/hero.jpg" alt="Terrazza sul mare di Zio Pierino PSG" class="hero-banner-img" onerror="this.src='/static/hero.jpg'">
+      <div class="hero-card-content">
+        <div class="hero-tagline">Benvenuti da Zio Pierino PSG</div>
+        <div class="hero-desc">
+          Rinomata trattoria marinara e pizzeria sul lungomare di <strong>Porto San Giorgio (PSG)</strong>. Pescato freschissimo dell'Adriatico, primi della tradizione sangiorgese e pizza cotta a legna. Prenota il tuo tavolo in pochi istanti con l'assistente ufficiale!
+        </div>
+        <div class="hero-badges-row">
+          <span class="hero-badge">🌊 Lungomare Gramsci</span>
+          <span class="hero-badge">🐟 Pescato Adriatico</span>
+          <span class="hero-badge">🍕 Forno a Legna</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Suggestion Chips Carousel -->
+  <div class="chips-container" id="chipsBar">
+    <button class="suggest-chip" id="chipStartCall" style="border-color:var(--gold); color:var(--gold); background:var(--chip-bg); font-weight:700;">📞 Chiama a voce Zio Pierino</button>
+    <button class="suggest-chip" data-msg="Vorrei prenotare un tavolo stasera">📅 Vorrei prenotare un tavolo</button>
+    <button class="suggest-chip" data-msg="Quali sono le specialità marinare consigliate da Zio Pierino?">🐟 Specialità di pesce consigliate</button>
+    <button class="suggest-chip" data-msg="Mi mostri il menu con i prezzi e gli allergeni?">🍽️ Mostrami il menu completo</button>
+    <button class="suggest-chip" data-msg="Quali sono gli orari di apertura e come vi raggiungiamo sul lungomare di Porto San Giorgio?">📍 Orari e dove siete a PSG</button>
+    <button class="suggest-chip" id="chipResetChat">🔄 Nuova chat</button>
+  </div>
+
+  <!-- Floating Call Minibar (docked above composer when call is minimized) -->
+  <div class="call-minibar" id="callMiniBar" style="display: none;">
+    <div class="minibar-info" id="callMiniBarOpen" title="Clicca per ingrandire la schermata di chiamata">
+      <span class="minibar-dot"></span>
+      <span class="minibar-timer" id="callMiniTimer">00:00</span>
+      <span class="minibar-divider">·</span>
+      <span class="minibar-status" id="callMiniStatus">In ascolto...</span>
+      <div class="minibar-wave">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="minibar-actions">
+      <button type="button" class="btn-mini-action" id="btnMiniMute" title="Silenzia microfono">🎙️</button>
+      <button type="button" class="btn-mini-action" id="btnMiniExpand" title="Ingrandisci chiamata">⛶</button>
+      <button type="button" class="btn-mini-action hangup" id="btnMiniHangup" title="Termina chiamata">📞</button>
+    </div>
+  </div>
+
+  <!-- Backward compatible hidden voice bar elements if referenced -->
+  <div id="voiceActiveBar" style="display: none;"><span id="voiceActiveStatus"></span><button type="button" id="btnStopVoiceListening"></button></div>
+
+  <!-- Composer Input Dock -->
+  <form id="chatForm" class="composer-bar">
+    <button type="button" class="mic-button" id="btnMic" title="Avvia Chiamata Vocale con Zio Pierino" aria-label="Avvia Chiamata Vocale con Zio Pierino">🎙️</button>
+    <div class="input-wrapper">
+      <textarea id="chatInput" class="composer-textarea" rows="1" placeholder="Scrivi un messaggio o chiedi a voce a Zio Pierino…" maxlength="2000" aria-label="Messaggio per il ristorante"></textarea>
+    </div>
+    <button type="submit" class="btn-send" id="btnSend" title="Invia messaggio" aria-label="Invia">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </form>
+
+  <!-- ================= OVERLAY: CHIAMATA VOCALE CON IL BOT ================= -->
+  <div class="call-overlay" id="callOverlay" style="display: none;">
+    <div class="call-container">
+      <!-- Call Top Header -->
+      <div class="call-top-bar">
+        <div class="call-badge-live">
+          <span class="live-blink-dot"></span>
+          <span>CHIAMATA VOCALE ATTIVA</span>
+        </div>
+        <div class="call-timer-display" id="callTimerDisplay">00:00</div>
+        <button type="button" class="btn-call-minimize" id="btnCallMinimize" title="Riduci e visualizza la chat scritta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Caller Profile & Dynamic Wave Stage -->
+      <div class="call-caller-stage" id="callCallerStage">
+        <div class="call-avatar-container">
+          <div class="call-ring ring-1"></div>
+          <div class="call-ring ring-2"></div>
+          <div class="call-ring ring-3"></div>
+          <div class="call-avatar-circle">
+            <img src="/logo.jpg" alt="Zio Pierino" class="call-logo-img" onerror="this.src='/static/logo.jpg'">
+          </div>
+        </div>
+
+        <h2 class="call-caller-name">Ristorante Zio Pierino PSG</h2>
+        <div class="call-caller-city">Porto San Giorgio · Centralino Prenotazioni</div>
+
+        <!-- HIGH-IMPACT STATE PILL (CHIARISSIMO SE PARLA O CARICA) -->
+        <div class="call-state-pill state-connecting" id="callStatePill">
+          <span class="pill-icon" id="callPillIcon"><span class="pill-spinner"></span></span>
+          <span class="pill-text" id="callPillText">In collegamento...</span>
+          <span class="pill-tag" id="callPillTag">VOCE</span>
+        </div>
+
+        <!-- Equalizer Soundwave Bars (9 dynamic columns) -->
+        <div class="call-soundwave" id="callSoundwave">
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+          <span class="wave-col"></span>
+        </div>
+
+        <!-- AI Radar Sweep Bar during Processing / Thinking -->
+        <div class="call-ai-thinking-radar" id="callThinkingRadar" style="display: none;">
+          <div class="radar-scan-line"></div>
+          <div class="radar-scan-text">
+            <span class="scan-pulse-dot"></span>
+            <span>Consultazione calendario tavoli e ragionamento AI...</span>
+          </div>
+        </div>
+
+        <!-- Call Status Title & Hint -->
+        <div class="call-status-title" id="callStatusTitle">Connessione in corso...</div>
+        <div class="call-status-hint" id="callStatusHint">Attendere la risposta di Zio Pierino...</div>
+      </div>
+
+      <!-- Real-time Dialogue Subtitles Card -->
+      <div class="call-subtitles-card" id="callSubtitlesCard">
+        <div class="call-sub-row user" id="callUserRow">
+          <div class="sub-header">
+            <div class="sub-label">👤 Lei:</div>
+            <span class="sub-tag" id="callUserTag">In attesa</span>
+          </div>
+          <div class="sub-text" id="callUserSubText">In attesa della sua voce...</div>
+        </div>
+        <div class="call-sub-row bot" id="callBotRow">
+          <div class="sub-header">
+            <div class="sub-label">🐟 Zio Pierino:</div>
+            <span class="sub-tag" id="callBotTag">Assistente Vocale</span>
+          </div>
+          <div class="sub-text" id="callBotSubText">Buongiorno! Desidera prenotare un tavolo o avere informazioni?</div>
+        </div>
+      </div>
+
+      <!-- Call Control Bottom Bar -->
+      <div class="call-actions-dock">
+        <div class="call-ctrl-item">
+          <button type="button" class="btn-call-circle" id="btnCallMute" title="Silenzia/Riattiva microfono">
+            <span class="ctrl-icon" id="muteIcon">🎙️</span>
+          </button>
+          <span class="ctrl-label" id="muteLabel">Muto</span>
+        </div>
+
+        <div class="call-ctrl-item">
+          <button type="button" class="btn-call-circle hangup" id="btnCallHangup" title="Termina Chiamata">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.996.996 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.39.39.39 1.02 0 1.41l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+            </svg>
+          </button>
+          <span class="ctrl-label hangup-label">Riaggancia</span>
+        </div>
+
+        <div class="call-ctrl-item">
+          <button type="button" class="btn-call-circle" id="btnCallToChat" title="Passa alla chat scritta">
+            <span class="ctrl-icon">💬</span>
+          </button>
+          <span class="ctrl-label">Scrivi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: MENU DIGITALE ================= -->
+<div class="modal-overlay" id="modalMenu">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span>📖</span> Il Menu di Zio Pierino PSG
+      </div>
+      <button class="btn-close-modal" data-close="modalMenu">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="menu-tabs" id="menuTabs">
+        <button class="menu-tab active" data-cat="all">Tutto il Menu</button>
+        <button class="menu-tab" data-cat="Antipasti">Antipasti</button>
+        <button class="menu-tab" data-cat="Primi">Primi Piatti</button>
+        <button class="menu-tab" data-cat="Secondi">Secondi di Pesce e Carne</button>
+        <button class="menu-tab" data-cat="Dolci">Dolci Artigianali</button>
+        <button class="menu-tab" data-cat="Bevande">Carta dei Vini e Bevande</button>
+      </div>
+      <div id="menuItemsContainer">
+        <div style="text-align:center; padding:20px; color:var(--text-muted);">Caricamento menu in corso...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: INFO & DOVE SIAMO ================= -->
+<div class="modal-overlay" id="modalInfo">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span>📍</span> Ristorante Zio Pierino PSG
+      </div>
+      <button class="btn-close-modal" data-close="modalInfo">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-hero-banner">
+        <img src="/hero.jpg" alt="Zio Pierino PSG" onerror="this.src='/static/hero.jpg'">
+        <div class="info-hero-overlay">
+          <div>
+            <div style="font-weight:800; font-size:16px;">Zio Pierino PSG – Porto San Giorgio</div>
+            <div style="font-size:12px; opacity:0.9;">Cucina Marinara, Pizzeria & Tradizione Adriatica</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="info-cell-title">📍 Indirizzo</div>
+          <div class="info-cell-val" id="infoAddress">Lungomare Antonio Gramsci 42, 63822 Porto San Giorgio (FM)</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="info-cell-title">📞 Telefono & Contatti</div>
+          <div class="info-cell-val">
+            <a href="tel:+390734678910" id="infoPhone">+39 0734 678910</a><br>
+            <span style="font-size:12px; color:var(--text-muted);" id="infoEmail">info@ziopierinopsg.it</span>
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="info-cell-title">🕒 Orari Pranzo & Cena</div>
+          <div class="info-cell-val" id="infoHours" style="font-size:12.5px; line-height:1.5;">
+            • <strong>Mar - Dom</strong>: Pranzo 12:00 - 15:00<br>
+            • <strong>Mar - Dom</strong>: Cena 19:00 - 23:30<br>
+            • <strong>Lunedì</strong>: Chiuso per turno di riposo
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="info-cell-title">🚗 Come Raggiungerci</div>
+          <div class="info-cell-val" style="font-size:12px;" id="infoDirections">
+            Sul lungomare di Porto San Giorgio, a 5 min a piedi dalla Stazione FS e dal Porto Peschereccio. Ampio parcheggio sul lungomare.
+          </div>
+        </div>
+
+        <div class="info-cell" style="grid-column: 1 / -1;">
+          <div class="info-cell-title">✨ Servizi & Atmosfera</div>
+          <div class="info-cell-val" style="font-size:12px; line-height:1.6;" id="infoAmenities">
+            Dehors estivo vista mare • Accessibile ai disabili • Opzioni per celiaci e vegetariani • Animali ammessi nel dehors • Pagamenti con carte, bancomat, Apple Pay e Google Pay.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: CERCA PRENOTAZIONE ================= -->
+<div class="modal-overlay" id="modalLookup">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span>🔍</span> Verifica Prenotazione
+      </div>
+      <button class="btn-close-modal" data-close="modalLookup">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px; color:var(--text-secondary); margin-bottom:12px;">
+        Inserisca il codice di prenotazione a 6 caratteri ricevuto via messaggio per verificare i dettagli del suo tavolo.
+      </p>
+      <div class="lookup-input-group">
+        <input type="text" class="lookup-input" id="lookupCodeInput" placeholder="ES. 123456" maxlength="8">
+        <button type="button" class="btn-pill highlight" id="btnSubmitLookup" style="padding:10px 18px;">Verifica</button>
+      </div>
+      <div class="lookup-result" id="lookupResult"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   ZIO PIERINO PSG – CLIENT CONTROLLER
+   ========================================================================= */
+const chatLog = document.getElementById("chatLog");
+const chatInput = document.getElementById("chatInput");
+const chatForm = document.getElementById("chatForm");
+const btnSend = document.getElementById("btnSend");
+const btnMic = document.getElementById("btnMic");
+const voiceActiveBar = document.getElementById("voiceActiveBar");
+const voiceActiveStatus = document.getElementById("voiceActiveStatus");
+const btnStopVoiceListening = document.getElementById("btnStopVoiceListening");
+const statusDot = document.getElementById("statusDot");
+const statusText = document.getElementById("statusText");
+
+// Session Management: ogni apertura o ricaricamento pagina avvia una sessione pulita
+function newSessionId() {
+  const a = new Uint8Array(16);
+  crypto.getRandomValues(a);
+  return Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
+}
+let sessionId = newSessionId();
+try {
+  sessionStorage.setItem("zp_sid", sessionId);
+} catch {}
+
+// Theme Management
+let currentTheme = localStorage.getItem("zp_theme") || "dark";
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("zp_theme", theme);
+  const themeIcon = document.getElementById("themeIcon");
+  if (themeIcon) themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
+  currentTheme = theme;
+}
+applyTheme(currentTheme);
+const btnThemeToggle = document.getElementById("btnThemeToggle");
+if (btnThemeToggle) {
+  btnThemeToggle.addEventListener("click", () => {
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
+}
+
+// Voice / Audio State
+let voiceMode = false;
+let isListening = false;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+
+// Modal Manager
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add("open");
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove("open");
+}
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.addEventListener("click", () => closeModal(btn.getAttribute("data-close")));
+});
+document.querySelectorAll(".modal-overlay").forEach(overlay => {
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.classList.remove("open");
+  });
+});
+
+document.getElementById("btnOpenMenu")?.addEventListener("click", () => {
+  openModal("modalMenu");
+  loadMenuData();
+});
+document.getElementById("btnOpenInfo")?.addEventListener("click", () => {
+  openModal("modalInfo");
+  loadInfoData();
+});
+document.getElementById("btnOpenLookup")?.addEventListener("click", () => {
+  openModal("modalLookup");
+});
+
+// Sound Synthesis Cues (Web Audio Synth for Telephone and Feedback Tones)
+function playTone(freq, type, dur, gainVal = 0.05) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  } catch {}
+}
+
+function playChime(freq = 587.33, dur = 0.08) {
+  playTone(freq, "sine", dur, 0.04);
+}
+
+function playCallConnectTone() {
+  playTone(523.25, "sine", 0.12, 0.08); // C5
+  setTimeout(() => playTone(783.99, "sine", 0.22, 0.08), 130); // G5
+}
+
+function playCallHangupTone() {
+  playTone(659.25, "sine", 0.12, 0.08); // E5
+  setTimeout(() => playTone(440.00, "sine", 0.22, 0.08), 130); // A4
+}
+
+function playListenPing() {
+  playTone(880, "sine", 0.07, 0.03);
+}
+
+
+// Formatting & Markdown Rendering
+function renderMarkdown(text) {
+  if (!text) return "";
+  let esc = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // Bold
+  esc = esc.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  // Inline Code
+  esc = esc.replace(/`([^`]+)`/g, "<code>$1</code>");
+  // Phone numbers click-to-call
+  esc = esc.replace(/(\+39\s*\d{2,4}\s*\d{3,4}\s*\d{3,4})/g, '<a href="tel:$1" style="color:var(--ocean); font-weight:600;">$1</a>');
+  // Bullet lists
+  esc = esc.replace(/^\s*[-*•]\s+(.*)$/gm, "• $1");
+  // Line breaks to <br>
+  esc = esc.replace(/\n/g, "<br>");
+  return esc;
+}
+
+// Extract reservation code if present (strictly 6 numeric digits upon confirmed booking)
+function extractBookingCode(text) {
+  if (!text) return null;
+  // Non mostrare il voucher se il bot sta chiedendo all'utente il codice o se è una domanda
+  if (/[?]|mi serve|fornir|comunic|indic|inseri|richied/i.test(text)) {
+    return null;
+  }
+  // Deve essere una conferma o esito positivo di prenotazione
+  const isConfirmed = /(?:prenotazion[ei]\s+confermat[ae]|confermata\s+con\s+successo|tavolo\s+riservato|riservato\s+al\s+Ristorante)/i.test(text);
+  if (!isConfirmed) return null;
+
+  // Cerca un codice di esattamente 6 cifre numeriche (es. 716410 o `716410`)
+  const m = text.match(/(?:codice(?:\s+di\s+prenotazione|\s+prenotazione)?(?:\s*[:èe])?\s*[`*]*(\d{6})[`*]*)/i)
+         || text.match(/`(\d{6})`/);
+  return m ? m[1] : null;
+}
+
+// Speech Synthesis
+function prepareSpeechText(text) {
+  if (!text) return "";
+  return text
+    .replace(/<think>[\s\S]*?<\/think>/gi, "")
+    .replace(/(?:call:)?(?:create_reservation|check_availability|get_reservation|modify_reservation|cancel_reservation|get_menu|get_restaurant_info)\b[^\n]*\(?\{[\s\S]*?\}\)?/gi, "")
+    .replace(/(?:call:)?(?:create_reservation|check_availability|get_reservation|modify_reservation|cancel_reservation|get_menu|get_restaurant_info)\b/gi, "")
+    .replace(/\{[^{}]*"(?:customer_name|party_size|date|time|contact|code)"[^{}]*\}/gi, "")
+    .replace(/```(?:json|python)?[\s\S]*?```/gi, "")
+    .replace(/<\/?[a-z_]+>/gi, "")
+    .replace(/[*_#`>~]+/g, "")
+    .replace(/^\s*[-•]\s+/gm, "")
+    .replace(/[\u{1F000}-\u{1FFFF}]/gu, "")
+    .replace(/[\u2600-\u27BF\uFE00-\uFE0F]/gu, "")
+    .replace(/(\d+),00\s*€/g, "$1 euro")
+    .replace(/(\d+)[,.](\d{2})\s*€/g, "$1 euro e $2")
+    .replace(/€\s*(\d+)/g, "$1 euro")
+    .replace(/\b(\d{6})\b/g, m => m.split("").join(" "))
+    .replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g, (m, h, mm) => mm === "00" ? h : h + " e " + parseInt(mm))
+    .replace(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?\b/g, (m, d, mo, y) => y ? `${d}/${mo}/${y}` : `${d}/${mo}`)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function speakText(text, onDone) {
+  if (!("speechSynthesis" in window)) {
+    if (onDone) setTimeout(onDone, 800);
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const clean = prepareSpeechText(text);
+  const u = new SpeechSynthesisUtterance(clean);
+  u.lang = "it-IT";
+  u.rate = 1.05;
+  const voices = window.speechSynthesis.getVoices();
+  const itVoice = voices.find(v => v.lang && v.lang.startsWith("it"));
+  if (itVoice) u.voice = itVoice;
+
+  let finished = false;
+  const finish = () => {
+    if (!finished) {
+      finished = true;
+      if (onDone) onDone();
+    }
+  };
+
+  u.onend = finish;
+  u.onerror = (e) => {
+    console.warn("Speech synthesis warning:", e);
+    finish();
+  };
+  window.speechSynthesis.speak(u);
+}
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// Add Message to Chat UI
+function addMessage(role, text, options = {}) {
+  const row = document.createElement("div");
+  row.className = `msg-row ${role}`;
+
+  // Avatar for Bot
+  if (role === "bot") {
+    const av = document.createElement("div");
+    av.className = "msg-avatar";
+    av.innerHTML = '<img src="/logo.jpg" alt="Zio Pierino" onerror="this.src=\'/static/logo.jpg\'">';
+    row.appendChild(av);
+  }
+
+  const container = document.createElement("div");
+  container.className = "msg-bubble-container";
+
+  const bubble = document.createElement("div");
+  bubble.className = "msg-bubble";
+
+  if (options.isTyping) {
+    bubble.innerHTML = `
+      <div class="typing-wave">
+        <span style="font-size:12.5px; color:var(--text-muted); margin-right:4px;">Zio Pierino sta elaborando</span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    `;
+    container.appendChild(bubble);
+    row.appendChild(container);
+    chatLog.appendChild(row);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return row;
+  }
+
+  bubble.innerHTML = renderMarkdown(text);
+  container.appendChild(bubble);
+
+  // If a reservation was confirmed with code, add luxury boarding pass card!
+  if (role === "bot" && options.bookingCode) {
+    const voucher = document.createElement("div");
+    voucher.className = "reservation-voucher-card";
+    voucher.innerHTML = `
+      <div style="font-size:13px; color:var(--text-primary); font-weight:600;">
+        Tavolo riservato al Ristorante Zio Pierino PSG (Porto San Giorgio)
+      </div>
+      <div class="voucher-code-box">
+        <div>
+          <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Codice Univoco</span>
+          <span class="voucher-code-val">${options.bookingCode}</span>
+        </div>
+        <button type="button" class="btn-copy-code" onclick="navigator.clipboard.writeText('${options.bookingCode}').then(() => alert('Codice ${options.bookingCode} copiato negli appunti!'))">
+          📋 Copia Codice
+        </button>
+      </div>
+      <div style="font-size:11.5px; color:var(--text-muted);">
+        Conservi questo codice per eventuali modifiche o disdette. La aspettiamo sul Lungomare Gramsci!
+      </div>
+    `;
+    container.appendChild(voucher);
+  }
+
+
+  // Meta row with action buttons
+  const meta = document.createElement("div");
+  meta.className = "msg-meta-row";
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  meta.innerHTML = `<span>${timeStr}</span>`;
+
+  if (role === "bot") {
+    const spkBtn = document.createElement("button");
+    spkBtn.type = "button";
+    spkBtn.className = "btn-msg-action";
+    spkBtn.innerHTML = `<span>🔊</span> <span>Ascolta</span>`;
+    spkBtn.onclick = () => speakText(text);
+    meta.appendChild(spkBtn);
+
+    const cpBtn = document.createElement("button");
+    cpBtn.type = "button";
+    cpBtn.className = "btn-msg-action";
+    cpBtn.innerHTML = `<span>📋</span> <span>Copia</span>`;
+    cpBtn.onclick = () => {
+      navigator.clipboard.writeText(text);
+      cpBtn.innerHTML = `<span>✓</span> <span>Copiato</span>`;
+      setTimeout(() => cpBtn.innerHTML = `<span>📋</span> <span>Copia</span>`, 2000);
+    };
+    meta.appendChild(cpBtn);
+  }
+
+  container.appendChild(meta);
+  row.appendChild(container);
+  chatLog.appendChild(row);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  return row;
+}
+
+// Initial Greeting
+function greet() {
+  const welcome = "Buongiorno e benvenuto da **Zio Pierino PSG** a Porto San Giorgio!\n\nPosso aiutarla a **riservare un tavolo** per pranzo o cena, consultare il nostro **menu marinaro** con prezzi e allergeni, oppure fornirle indicazioni e orari del ristorante. Come posso esserle utile oggi?";
+  addMessage("bot", welcome);
+  if (voiceMode) speakText(welcome);
+}
+
+// Send Message Handler
+async function sendMessage(text, isVoice = false) {
+  text = text.trim();
+  if (!text || btnSend.disabled) return;
+
+  addMessage("user", text);
+  playChime(659.25, 0.06);
+  chatInput.value = "";
+  autoResizeTextarea();
+  btnSend.disabled = true;
+
+  const typingRow = addMessage("bot", "", { isTyping: true });
+  const useVoice = isVoice || voiceMode;
+
+  try {
+    const res = await fetch("/api/message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session_id: sessionId,
+        message: text,
+        channel: useVoice ? "voice" : "chat"
+      })
+    });
+    const data = await res.json();
+    typingRow.remove();
+
+    if (!res.ok) {
+      addMessage("bot", data.detail || "Si è verificato un inconveniente con il server. Riprovi tra poco.");
+      return;
+    }
+
+    const code = extractBookingCode(data.reply);
+    addMessage("bot", data.reply, {
+      pseudonymized: data.pseudonymized,
+      bookingCode: code
+    });
+    playChime(880, 0.08);
+
+    if (useVoice) {
+      speakText(data.reply);
+    }
+  } catch (err) {
+    typingRow.remove();
+    addMessage("bot", "Impossibile collegarsi al servizio di prenotazione. Verifichi la connessione e riprovi.");
+  } finally {
+    btnSend.disabled = false;
+    chatInput.focus();
+  }
+}
+
+// =========================================================================
+// VOICE CALL CONTROLLER (CHIAMATA VOCALE CON IL BOT)
+// =========================================================================
+let isCallActive = false;
+let isCallMuted = false;
+let callTimerInterval = null;
+let callSeconds = 0;
+let callState = "idle"; // "idle" | "connecting" | "listening" | "processing" | "bot_speaking" | "muted"
+
+function setCallState(state, title, hint) {
+  callState = state;
+  const overlay = document.getElementById("callOverlay");
+  const stageEl = document.getElementById("callCallerStage");
+  const pillEl = document.getElementById("callStatePill");
+  const pillIcon = document.getElementById("callPillIcon");
+  const pillText = document.getElementById("callPillText");
+  const pillTag = document.getElementById("callPillTag");
+  const titleEl = document.getElementById("callStatusTitle");
+  const hintEl = document.getElementById("callStatusHint");
+  const waveEl = document.getElementById("callSoundwave");
+  const miniStatus = document.getElementById("callMiniStatus");
+  const miniBar = document.getElementById("callMiniBar");
+  const radarEl = document.getElementById("callThinkingRadar");
+  const subCard = document.getElementById("callSubtitlesCard");
+  const userTag = document.getElementById("callUserTag");
+  const botTag = document.getElementById("callBotTag");
+
+  if (overlay) overlay.setAttribute("data-call-state", state);
+  if (stageEl) stageEl.className = `call-caller-stage state-${state}`;
+  if (subCard) subCard.className = `call-subtitles-card state-${state}`;
+  if (miniBar) miniBar.className = `call-minibar state-${state}`;
+
+  if (waveEl) {
+    waveEl.className = `call-soundwave state-${state}`;
+  }
+
+  if (pillEl) {
+    pillEl.className = `call-state-pill state-${state}`;
+  }
+
+  if (state === "processing") {
+    if (pillIcon) pillIcon.innerHTML = '<span class="pill-spinner"></span>';
+    if (pillText) pillText.textContent = "ZIO PIERINO STA ELABORANDO...";
+    if (pillTag) { pillTag.textContent = "AI ALL'OPERA"; pillTag.className = "pill-tag tag-amber"; }
+    if (radarEl) radarEl.style.display = "flex";
+    if (userTag) { userTag.textContent = "✓ Inviato all'AI"; userTag.className = "sub-tag sent"; }
+    if (botTag) { botTag.textContent = "⏳ Sto pensando..."; botTag.className = "sub-tag thinking"; }
+    if (titleEl) titleEl.textContent = title || "⏳ Zio Pierino sta elaborando...";
+    if (hintEl) hintEl.textContent = hint !== undefined ? hint : "Verifico tavoli, orari e rispondo con l'AI...";
+    if (miniStatus) miniStatus.textContent = "⏳ Elaborazione in corso...";
+  } else if (state === "bot_speaking") {
+    if (pillIcon) pillIcon.innerHTML = '<span class="pill-equalizer"><span></span><span></span><span></span></span>';
+    if (pillText) pillText.textContent = "ZIO PIERINO STA PARLANDO";
+    if (pillTag) { pillTag.textContent = "VOCE ATTIVA"; pillTag.className = "pill-tag tag-gold"; }
+    if (radarEl) radarEl.style.display = "none";
+    if (userTag) { userTag.textContent = "In attesa"; userTag.className = "sub-tag"; }
+    if (botTag) { botTag.textContent = "🔊 Voce in riproduzione"; botTag.className = "sub-tag speaking"; }
+    if (titleEl) titleEl.textContent = title || "🔊 Zio Pierino sta parlando...";
+    if (hintEl) hintEl.textContent = hint !== undefined ? hint : "Ascolti la risposta al telefono...";
+    if (miniStatus) miniStatus.textContent = "🔊 Sta parlando...";
+  } else if (state === "listening") {
+    if (pillIcon) pillIcon.innerHTML = '<span class="pill-rec-dot"></span>';
+    if (pillText) pillText.textContent = "IN ASCOLTO — TOCCA A LEI PARLARE";
+    if (pillTag) { pillTag.textContent = "MIC ATTIVO"; pillTag.className = "pill-tag tag-green"; }
+    if (radarEl) radarEl.style.display = "none";
+    if (userTag) { userTag.textContent = "🎙️ Tocca a Lei"; userTag.className = "sub-tag listening"; }
+    if (botTag) { botTag.textContent = "In ascolto"; botTag.className = "sub-tag"; }
+    if (titleEl) titleEl.textContent = title || "🎙️ In ascolto... Parli pure";
+    if (hintEl) hintEl.textContent = hint !== undefined ? hint : "es. 'Tavolo per 4 domani sera alle 20 e 30'";
+    if (miniStatus) miniStatus.textContent = "🎙️ In ascolto...";
+  } else if (state === "muted") {
+    if (pillIcon) pillIcon.innerHTML = '<span>🔇</span>';
+    if (pillText) pillText.textContent = "MICROFONO SILENZIATO";
+    if (pillTag) { pillTag.textContent = "MUTED"; pillTag.className = "pill-tag tag-slate"; }
+    if (radarEl) radarEl.style.display = "none";
+    if (userTag) { userTag.textContent = "Disattivato"; userTag.className = "sub-tag"; }
+    if (botTag) { botTag.textContent = "In pausa"; botTag.className = "sub-tag"; }
+    if (titleEl) titleEl.textContent = title || "🔇 Microfono silenziato";
+    if (hintEl) hintEl.textContent = hint !== undefined ? hint : "Clicchi su 'Attiva' per riaprire il microfono";
+    if (miniStatus) miniStatus.textContent = "🔇 Microfono silenziato";
+  } else {
+    // connecting or idle
+    if (pillIcon) pillIcon.innerHTML = '<span class="pill-spinner"></span>';
+    if (pillText) pillText.textContent = "CONNESSIONE CENTRALINO...";
+    if (pillTag) { pillTag.textContent = "LINEA 1"; pillTag.className = "pill-tag"; }
+    if (radarEl) radarEl.style.display = "none";
+    if (userTag) { userTag.textContent = "In attesa"; userTag.className = "sub-tag"; }
+    if (botTag) { botTag.textContent = "Centralino"; botTag.className = "sub-tag"; }
+    if (titleEl) titleEl.textContent = title || "Connessione in corso...";
+    if (hintEl) hintEl.textContent = hint !== undefined ? hint : "In collegamento con Zio Pierino PSG...";
+    if (miniStatus) miniStatus.textContent = "Connessione...";
+  }
+}
+
+// Speech Recognition Setup for Call & Voice Input
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = "it-IT";
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onstart = () => {
+    isListening = true;
+    btnMic.classList.add("in-call", "recording");
+    if (isCallActive) {
+      setCallState("listening", "🎙️ In ascolto... Parli pure", "es. 'Tavolo per 4 domani sera alle 20 e 30'");
+    }
+  };
+
+  recognition.onresult = (e) => {
+    let transcript = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      transcript += e.results[i][0].transcript;
+    }
+    if (isCallActive) {
+      const userSub = document.getElementById("callUserSubText");
+      if (userSub && transcript.trim()) {
+        userSub.textContent = transcript;
+      }
+    } else {
+      chatInput.value = transcript;
+      autoResizeTextarea();
+    }
+  };
+
+  recognition.onerror = (e) => {
+    console.warn("Speech recognition error:", e.error);
+    isListening = false;
+    btnMic.classList.remove("recording");
+    if (e.error === "not-allowed") {
+      alert("Accesso al microfono non consentito. Abilitare il permesso microfono nel browser.");
+      if (isCallActive) endCall();
+    } else if (isCallActive && !isCallMuted && callState === "listening") {
+      setTimeout(() => {
+        if (isCallActive && !isCallMuted && callState === "listening") {
+          try { recognition.start(); } catch {}
+        }
+      }, 500);
+    }
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    btnMic.classList.remove("recording");
+    if (isCallActive) {
+      if (isCallMuted) return;
+      const userSub = document.getElementById("callUserSubText");
+      const heard = userSub ? userSub.textContent.trim() : "";
+      if (heard && heard !== "..." && !heard.startsWith("In attesa") && heard !== "In ascolto...") {
+        handleCallSpeechResult(heard);
+      } else if (callState === "listening" && !isCallMuted) {
+        // Breve silenzio: riapre l'ascolto continuo per la conversazione a voce
+        setTimeout(() => {
+          if (isCallActive && !isCallMuted && callState === "listening") {
+            try { recognition.start(); } catch {}
+          }
+        }, 350);
+      }
+    } else {
+      if (chatInput.value.trim()) {
+        sendMessage(chatInput.value, true);
+      }
+    }
+  };
+}
+
+function startCallListening() {
+  if (!isCallActive || isCallMuted) return;
+  setCallState("listening", "🎙️ In ascolto... Parli pure", "es. 'Tavolo per 4 domani sera alle 20 e 30'");
+  const userSub = document.getElementById("callUserSubText");
+  if (userSub) userSub.textContent = "In attesa della sua voce... Parli pure!";
+  playListenPing();
+  try {
+    recognition?.start();
+  } catch (err) {}
+}
+
+async function handleCallSpeechResult(text) {
+  text = text.trim();
+  if (!text || !isCallActive) return;
+
+  setCallState("processing", "⏳ Zio Pierino sta elaborando...", "Verifico disponibilità al ristorante...");
+  const botSub = document.getElementById("callBotSubText");
+  if (botSub) {
+    botSub.innerHTML = `
+      <div class="bot-thinking-bubble">
+        <span class="thinking-label">Zio Pierino sta riflettendo con l'AI...</span>
+        <div class="thinking-dots-anim">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Riconoscimento intenzione di terminare la chiamata a voce
+  const exitRegex = /^(?:arrivederci|basta così|fine|chiudi chiamata|termina chiamata|ciao ciao|addio|buona serata)\.?$/i;
+  if (exitRegex.test(text)) {
+    const byeText = "Grazie per aver chiamato il Ristorante Zio Pierino. Arrivederci!";
+    if (botSub) botSub.textContent = byeText;
+    speakText(byeText, () => {
+      endCall();
+    });
+    return;
+  }
+
+  // Registra il messaggio dell'utente nel log chat
+  addMessage("user", text);
+  playChime(659.25, 0.05);
+
+  try {
+    const res = await fetch("/api/message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session_id: sessionId,
+        message: text,
+        channel: "voice" // Forza canale voce per ottenere risposte stringenti e chiare
+      })
+    });
+    const data = await res.json();
+    if (!isCallActive) return;
+
+    if (!res.ok) {
+      const errMsg = data.detail || "Non ho compreso bene, può ripetere?";
+      const botSub = document.getElementById("callBotSubText");
+      if (botSub) botSub.textContent = errMsg;
+      speakText(errMsg, () => {
+        if (isCallActive && !isCallMuted) startCallListening();
+      });
+      return;
+    }
+
+    const reply = data.reply;
+    const botSub = document.getElementById("callBotSubText");
+    if (botSub) botSub.textContent = reply;
+
+    const code = extractBookingCode(reply);
+    addMessage("bot", reply, {
+      pseudonymized: data.pseudonymized,
+      bookingCode: code
+    });
+
+    setCallState("bot_speaking", "🔊 Zio Pierino sta parlando...", "Ascolti la risposta");
+
+    // Riconosce se la risposta del bot è un saluto di chiusura definitiva
+    const isFarewell = /(?:grazie e arrivederci|buona serata e arrivederci|alla prossima|arrivederci)/i.test(reply) && /(?:confermat|codice|annullat)/i.test(reply);
+
+    speakText(reply, () => {
+      if (!isCallActive) return;
+      if (isFarewell) {
+        setTimeout(() => { if (isCallActive) endCall(); }, 2500);
+      } else if (!isCallMuted) {
+        startCallListening();
+      }
+    });
+  } catch (err) {
+    if (!isCallActive) return;
+    const netErr = "Difficoltà di connessione con il ristorante. Può ripetere?";
+    const botSub = document.getElementById("callBotSubText");
+    if (botSub) botSub.textContent = netErr;
+    speakText(netErr, () => {
+      if (isCallActive && !isCallMuted) startCallListening();
+    });
+  }
+}
+
+function startCall() {
+  if (isCallActive) {
+    expandCall();
+    return;
+  }
+  if (!SpeechRecognition) {
+    alert("La chiamata vocale richiede un browser moderno con supporto per il microfono (Google Chrome, Microsoft Edge o Apple Safari su HTTPS o localhost).");
+    return;
+  }
+
+  isCallActive = true;
+  isCallMuted = false;
+  callSeconds = 0;
+
+  const overlay = document.getElementById("callOverlay");
+  const minibar = document.getElementById("callMiniBar");
+  if (overlay) overlay.style.display = "flex";
+  if (minibar) minibar.style.display = "none";
+  btnMic.classList.add("in-call");
+
+  const timerEl = document.getElementById("callTimerDisplay");
+  if (timerEl) timerEl.textContent = "00:00";
+  clearInterval(callTimerInterval);
+  callTimerInterval = setInterval(() => {
+    callSeconds++;
+    const mm = String(Math.floor(callSeconds / 60)).padStart(2, "0");
+    const ss = String(callSeconds % 60).padStart(2, "0");
+    const timeStr = `${mm}:${ss}`;
+    const td = document.getElementById("callTimerDisplay");
+    const md = document.getElementById("callMiniTimer");
+    if (td) td.textContent = timeStr;
+    if (md) md.textContent = timeStr;
+  }, 1000);
+
+  playCallConnectTone();
+  setCallState("connecting", "Connessione in corso...", "In collegamento con Zio Pierino PSG...");
+
+  const userSub = document.getElementById("callUserSubText");
+  const botSub = document.getElementById("callBotSubText");
+  if (userSub) userSub.textContent = "In attesa della sua voce...";
+
+  // Saluto telefonico iniziale stringente e chiaro
+  setTimeout(() => {
+    if (!isCallActive) return;
+    const greeting = "Buongiorno, Ristorante Zio Pierino PSG. Desidera prenotare un tavolo o avere informazioni?";
+    if (botSub) botSub.textContent = greeting;
+    setCallState("bot_speaking", "🔊 Zio Pierino sta parlando...", "Ascolti la risposta");
+    speakText(greeting, () => {
+      if (isCallActive && !isCallMuted) {
+        startCallListening();
+      }
+    });
+  }, 700);
+}
+
+function endCall() {
+  if (!isCallActive) return;
+  isCallActive = false;
+  isCallMuted = false;
+  clearInterval(callTimerInterval);
+
+  try { recognition?.stop(); } catch {}
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  playCallHangupTone();
+
+  const overlay = document.getElementById("callOverlay");
+  const minibar = document.getElementById("callMiniBar");
+  if (overlay) overlay.style.display = "none";
+  if (minibar) minibar.style.display = "none";
+  btnMic.classList.remove("in-call", "recording");
+
+  const mm = String(Math.floor(callSeconds / 60)).padStart(2, "0");
+  const ss = String(callSeconds % 60).padStart(2, "0");
+  const durStr = `${mm}:${ss}`;
+
+  // Inserisci tessera di riepilogo telefonata nel log
+  const card = document.createElement("div");
+  card.className = "call-notice-card";
+  card.innerHTML = `
+    <div class="call-notice-content">
+      <span class="call-notice-icon">📞</span>
+      <div>
+        <div class="call-notice-title">Chiamata Vocale Conclusa</div>
+        <div class="call-notice-sub">Durata: ${durStr} · Tutti i dettagli concordati a voce sono salvati in questa chat.</div>
+      </div>
+    </div>
+  `;
+  chatLog.appendChild(card);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+function toggleCallMute() {
+  if (!isCallActive) return;
+  isCallMuted = !isCallMuted;
+  const muteIcon = document.getElementById("muteIcon");
+  const muteLabel = document.getElementById("muteLabel");
+  const btnCallMute = document.getElementById("btnCallMute");
+  const btnMiniMute = document.getElementById("btnMiniMute");
+
+  if (isCallMuted) {
+    try { recognition?.stop(); } catch {}
+    setCallState("muted", "🔇 Microfono silenziato", "Clicchi su 'Attiva' per riaprire il microfono");
+    if (muteIcon) muteIcon.textContent = "🔇";
+    if (muteLabel) muteLabel.textContent = "Attiva";
+    if (btnCallMute) btnCallMute.classList.add("active-muted");
+    if (btnMiniMute) btnMiniMute.textContent = "🔇";
+  } else {
+    if (muteIcon) muteIcon.textContent = "🎙️";
+    if (muteLabel) muteLabel.textContent = "Muto";
+    if (btnCallMute) btnCallMute.classList.remove("active-muted");
+    if (btnMiniMute) btnMiniMute.textContent = "🎙️";
+    startCallListening();
+  }
+}
+
+function minimizeCall() {
+  if (!isCallActive) return;
+  const overlay = document.getElementById("callOverlay");
+  const minibar = document.getElementById("callMiniBar");
+  if (overlay) overlay.style.display = "none";
+  if (minibar) minibar.style.display = "flex";
+}
+
+function expandCall() {
+  if (!isCallActive) return;
+  const overlay = document.getElementById("callOverlay");
+  const minibar = document.getElementById("callMiniBar");
+  if (overlay) overlay.style.display = "flex";
+  if (minibar) minibar.style.display = "none";
+}
+
+// Event Listeners per Chiamata Vocale
+btnMic.addEventListener("click", () => {
+  if (isCallActive) expandCall(); else startCall();
+});
+document.getElementById("btnStartCall")?.addEventListener("click", () => {
+  if (isCallActive) expandCall(); else startCall();
+});
+document.getElementById("chipStartCall")?.addEventListener("click", () => {
+  if (isCallActive) expandCall(); else startCall();
+});
+
+document.getElementById("btnCallHangup")?.addEventListener("click", endCall);
+document.getElementById("btnMiniHangup")?.addEventListener("click", endCall);
+document.getElementById("btnCallMute")?.addEventListener("click", toggleCallMute);
+document.getElementById("btnMiniMute")?.addEventListener("click", toggleCallMute);
+document.getElementById("btnCallMinimize")?.addEventListener("click", minimizeCall);
+document.getElementById("btnCallToChat")?.addEventListener("click", minimizeCall);
+document.getElementById("callMiniBarOpen")?.addEventListener("click", expandCall);
+document.getElementById("btnMiniExpand")?.addEventListener("click", expandCall);
+
+
+// Auto-expand Textarea
+function autoResizeTextarea() {
+  chatInput.style.height = "auto";
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + "px";
+}
+chatInput.addEventListener("input", autoResizeTextarea);
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage(chatInput.value);
+  }
+});
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  sendMessage(chatInput.value);
+});
+
+// Reset Chat Implementation
+async function resetChat() {
+  if (!confirm("Desidera cancellare la conversazione e ricominciare?")) return;
+  await fetch("/api/reset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session_id: sessionId })
+  }).catch(() => {});
+  sessionId = newSessionId();
+  try { sessionStorage.setItem("zp_sid", sessionId); } catch {}
+  chatLog.innerHTML = "";
+  
+  // Re-insert clean hero card
+  const hero = document.createElement("div");
+  hero.className = "hero-welcome-card";
+  hero.id = "heroCard";
+  hero.innerHTML = `
+    <img src="/hero.jpg" alt="Terrazza sul mare di Zio Pierino PSG" class="hero-banner-img" onerror="this.src='/static/hero.jpg'">
+    <div class="hero-card-content">
+      <div class="hero-tagline">Benvenuti da Zio Pierino PSG</div>
+      <div class="hero-desc">
+        Rinomata trattoria marinara e pizzeria sul lungomare di <strong>Porto San Giorgio (PSG)</strong>. Pescato freschissimo dell'Adriatico, primi della tradizione sangiorgese e pizza cotta a legna. Prenota il tuo tavolo in pochi istanti con l'assistente ufficiale!
+      </div>
+      <div class="hero-badges-row">
+        <span class="hero-badge">🌊 Lungomare Gramsci</span>
+        <span class="hero-badge">🐟 Pescato Adriatico</span>
+        <span class="hero-badge">🍕 Forno a Legna</span>
+      </div>
+    </div>
+  `;
+  chatLog.appendChild(hero);
+  greet();
+}
+
+// Suggestion Chips Click
+document.querySelectorAll(".suggest-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    if (chip.id === "chipResetChat") {
+      resetChat();
+      return;
+    }
+    if (chip.id === "chipStartCall") {
+      return; // Gestito da listener dedicato per avviare la chiamata vocale
+    }
+    const text = chip.getAttribute("data-msg") || chip.textContent;
+    sendMessage(text);
+  });
+});
+
+document.getElementById("btnResetChat")?.addEventListener("click", resetChat);
+
+// Check Service Status
+async function checkStatus() {
+  try {
+    const res = await fetch("/api/status");
+    const data = await res.json();
+    if (data.backend === "ok") {
+      statusDot.style.backgroundColor = "var(--emerald)";
+      statusText.textContent = "Porto San Giorgio · Online";
+    } else {
+      statusDot.style.backgroundColor = "#eab308";
+      statusText.textContent = "Connessione in corso…";
+    }
+  } catch {
+    statusDot.style.backgroundColor = "#ef4444";
+    statusText.textContent = "Servizio non raggiungibile";
+  }
+}
+checkStatus();
+
+// Load Restaurant Info into Modal
+async function loadInfoData() {
+  try {
+    const res = await fetch("/api/info");
+    if (!res.ok) return;
+    const info = await res.json();
+    if (info.indirizzo) document.getElementById("infoAddress").textContent = info.indirizzo;
+    if (info.telefono) {
+      const ph = document.getElementById("infoPhone");
+      ph.textContent = info.telefono;
+      ph.href = "tel:" + info.telefono.replace(/\s+/g, "");
+    }
+    if (info.email) document.getElementById("infoEmail").textContent = info.email;
+    if (info.come_arrivare) document.getElementById("infoDirections").textContent = info.come_arrivare;
+    if (info.accessibilita) {
+      document.getElementById("infoAmenities").textContent = `${info.accessibilita} ${info.animali || ''} ${info.pagamenti || ''}`;
+    }
+  } catch {}
+}
+
+// Load Restaurant Menu into Modal
+let fullMenuData = null;
+async function loadMenuData() {
+  const container = document.getElementById("menuItemsContainer");
+  if (fullMenuData) {
+    renderMenuCategory("all");
+    return;
+  }
+  try {
+    const res = await fetch("/api/menu");
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">Menu momentaneamente non disponibile.</div>`;
+      return;
+    }
+    fullMenuData = data;
+    renderMenuCategory("all");
+  } catch (err) {
+    container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">Impossibile caricare il menu. Riprovi.</div>`;
+  }
+}
+
+function renderMenuCategory(targetCat) {
+  const container = document.getElementById("menuItemsContainer");
+  if (!fullMenuData) return;
+  let html = "";
+  for (const [catName, items] of Object.entries(fullMenuData)) {
+    if (targetCat !== "all" && catName !== targetCat) continue;
+    html += `<div style="font-family:var(--font-heading); font-size:16px; font-weight:800; color:var(--gold); margin:14px 0 8px; text-transform:uppercase; letter-spacing:0.8px;">${catName}</div>`;
+    items.forEach(dish => {
+      const tags = (dish.caratteristiche || []).map(t => `<span class="dish-tag">${t}</span>`).join(" ");
+      const allergens = dish.allergeni && dish.allergeni !== "nessuno" ? `<span style="font-size:11px; color:var(--text-muted);">Allergeni: ${dish.allergeni}</span>` : "";
+      html += `
+        <div class="dish-card" onclick="askAboutDish('${dish.piatto.replace(/'/g, "\\'")}')" style="cursor:pointer;" title="Clicca per chiedere info o prenotare questo piatto">
+          <div style="flex:1;">
+            <div class="dish-name">${dish.piatto}</div>
+            <div class="dish-desc">${dish.descrizione || ''}</div>
+            <div class="dish-tags">${tags} ${allergens}</div>
+          </div>
+          <div class="dish-price">${dish.prezzo_euro.toFixed(2)}€</div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
+}
+
+window.askAboutDish = function(dishName) {
+  closeModal("modalMenu");
+  sendMessage(`Vorrei informazioni sul piatto: ${dishName}`);
+};
+
+// Menu Category Tabs Filter
+document.getElementById("menuTabs").querySelectorAll(".menu-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".menu-tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    renderMenuCategory(tab.getAttribute("data-cat"));
+  });
+});
+
+// Reservation Lookup Code Check
+document.getElementById("btnSubmitLookup").addEventListener("click", async () => {
+  const code = document.getElementById("lookupCodeInput").value.trim().toUpperCase();
+  const resBox = document.getElementById("lookupResult");
+  if (!code || code.length < 5) {
+    alert("Inserisca un codice valido di 6 cifre.");
+    return;
+  }
+  resBox.style.display = "block";
+  resBox.innerHTML = `<div style="text-align:center; padding:12px; color:var(--text-muted);">Verifica in corso...</div>`;
+  try {
+    const res = await fetch(`/api/reservation/${code}`);
+    const data = await res.json();
+    if (!res.ok) {
+      resBox.innerHTML = `<div style="padding:12px; border-radius:10px; background:rgba(239,68,68,0.12); color:#ef4444; font-size:13px;">Nessuna prenotazione trovata per il codice <strong>${code}</strong>.</div>`;
+      return;
+    }
+    resBox.innerHTML = `
+      <div style="padding:14px; border-radius:12px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); font-size:13.5px; line-height:1.6;">
+        <div style="font-weight:700; color:var(--emerald); margin-bottom:4px;">Prenotazione Trovata!</div>
+        <div>• <strong>Data</strong>: ${data.data || data.date} ore ${data.ora || data.time}</div>
+        <div>• <strong>Coperti</strong>: ${data.persone || data.party_size} persone</div>
+        <div>• <strong>Tavolo</strong>: ${data.tavolo || data.table} (${data.zona || 'sala'})</div>
+        <div>• <strong>Stato</strong>: <span style="text-transform:uppercase; font-weight:700; color:var(--gold);">${data.stato || data.status}</span></div>
+        <div style="margin-top:10px;">
+          <button type="button" class="btn-pill" onclick="closeModal('modalLookup'); sendMessage('Vorrei modificare la prenotazione con codice ${code}');">Modifica con assistente</button>
+        </div>
+      </div>
+    `;
+  } catch {
+    resBox.innerHTML = `<div style="padding:12px; color:#ef4444; font-size:13px;">Errore di connessione. Riprovi.</div>`;
+  }
+});
+
+// Boot Greet & Autofocus
+greet();
+chatInput.focus();
+</script>
+</body>
+</html>

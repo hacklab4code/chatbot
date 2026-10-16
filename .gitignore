@@ -1,0 +1,63 @@
+# Environments
+.venv/
+venv/
+ENV/
+env/
+**/.venv/
+**/venv/
+
+# Python bytecode & cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+
+# Sensitive data, databases & encryption keys
+data/
+**/data/
+*.db
+*.sqlite
+*.sqlite3
+*.key
+secret.key
+**/secret.key
+vault.json
+**/vault.json
+
+# Environment configuration (keep example templates)
+.env
+**/.env
+!.env.example
+!**/.env.example
+
+# macOS / OS files
+.DS_Store
+**/.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Models / checkpoints / large assets
+models/
+**/models/
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# Exclude presentation / exam / non-runtime packages
+CARTELLA_PER_IL_PROFESSORE/
+pacchetti_tre_pc/
+docs/
+scripts/
+*.pdf
+GUIDA_ESPOSIZIONE_PROGETTO.md
+GUIDA_ESPOSIZIONE_PROGETTO.pdf
+RELAZIONE_COMPLETA_PROGETTO_3PC.md
+RELAZIONE_COMPLETA_PROGETTO_3PC.pdf

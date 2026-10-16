@@ -1,0 +1,6 @@
+httpx==0.28.1
+numpy>=1.26,<3
+sounddevice==0.5.1
+faster-whisper==1.1.1
+requests>=2.31  # richiesto da faster-whisper ma non dichiarato
+pyttsx3==2.98
